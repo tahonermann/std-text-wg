@@ -2,8 +2,8 @@
 
 The next meeting is scheduled for Wednesday, September 13th from 2:30pm-4:00pm EDT.
 
-- [August 16th, 2017](#august-16th-2017)
 - [August 30th, 2017](#august-30th-2017)
+- [August 16th, 2017](#august-16th-2017)
 
 # August 30th, 2017
 
