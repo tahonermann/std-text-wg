@@ -1,0 +1,434 @@
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<head>
+<title>std-text-wg use cases</title>
+
+<style type="text/css">
+
+#hide_stdtext:checked ~ * fieldset.std-text-wg { display:none; visibility:hidden }
+#hide_cxx17:checked   ~ * fieldset.cxx17       { display:none; visibility:hidden }
+#hide_icu:checked     ~ * fieldset.icu         { display:none; visibility:hidden }
+#hide_win32:checked   ~ * fieldset.win32       { display:none; visibility:hidden }
+#hide_qt:checked      ~ * fieldset.qt          { display:none; visibility:hidden }
+fieldset.use_case_example {
+  float: left;
+  margin: 2px;
+  border-width: medium;
+  border-style: solid;
+}
+fieldset.use_case_example:not([solution]) {
+  border-color: grey;
+}
+fieldset.use_case_example[solution="yes"] {
+  border-color: green;
+}
+fieldset.use_case_example[solution="partial"] {
+  border-color: blue;
+}
+fieldset.use_case_example[solution="ugly"] {
+  border-color: orange;
+}
+fieldset.use_case_example[solution="no"] {
+  border-color: red;
+}
+fieldset.use_case_example:not([solution])::before {
+  content: "?";
+}
+fieldset.use_case_example[solution="no"]::before {
+  content: "X";
+}
+
+div.use_case {
+  padding-left: 20px;
+  display: table; /* undo float:left effect */
+}
+ol.use_cases {
+  padding-left: 20px;
+  counter-reset: item;
+}
+ol.use_cases > li {
+  display: block;
+}
+ol.use_cases > li::before {
+  content: counters(item, ".") ") ";
+  counter-increment: item;
+}
+
+div.tocItems {
+  margin-left: 1em;
+}
+div.tocItem {
+  margin-left: 1em;
+}
+
+</style>
+
+<script>
+function generateTOCItemHTML(toc, index, elem) {
+  var id;
+  if (elem.hasAttribute("id")) {
+    id = elem.getAttribute("id");
+  } else {
+    id = "toc" + index;
+    elem.setAttribute("id", id);
+  }
+  var link = document.createElement("a");
+  link.setAttribute("href", "#" + id);
+  link.innerHTML = index + ") " + elem.firstChild.innerHTML;
+  var div = document.createElement("div");
+  div.setAttribute("class", "tocItem");
+  div.appendChild(link);
+  toc.appendChild(div);
+}
+
+function generateTOCItem(toc, prefix, item, elem) {
+  if (elem.tagName === "LI") {
+    var childPrefix = (prefix ? prefix + "." : "") + item;
+    generateTOCItemHTML(toc, childPrefix, elem);
+    var children = elem.children;
+    for (var i = 0; i < children.length; i++) {
+      generateTOCItems(toc, childPrefix, children[i]);
+    }
+  }
+}
+
+function generateTOCItems(toc, prefix, elem) {
+  if (elem.tagName === "OL" &&
+      elem.className === "use_cases")
+  {
+    var div = document.createElement("div");
+    div.setAttribute("class", "tocItems");
+    toc.appendChild(div);
+    var item=0;
+    var children = elem.children;
+    for (var i = 0; i < children.length; i++) {
+      if (children[i].tagName === "LI") {
+        item++;
+        generateTOCItem(div, prefix, item, children[i]);
+      }
+    }
+  }
+}
+
+function generateTOC() {
+  var toc = document.getElementById("toc");
+  var prefix = "";
+  var children = document.body.children;
+  for (var i = 0; i < children.length; i++) {
+    generateTOCItems(toc, prefix, children[i]);
+  }
+}
+</script>
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+function highlightSyntax() {
+  var allFieldSets, i, j;
+  allFieldSets = document.getElementsByTagName("fieldset");
+  for (i = 0, j = allFieldSets.length; i < j; i++) {
+    allPre = allFieldSets[i].getElementsByTagName("pre");
+    for (k = 0, l = allPre.length; k < l; k++) {
+      hljs.highlightBlock(allPre[k]);
+    }
+  }
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  generateTOC();
+  highlightSyntax();
+});
+</script>
+
+</head>
+
+<body>
+
+<div id="toc">Use cases:</div>
+
+<br/>
+<input type="checkbox" id="hide_stdtext">Hide std-text-wg examples</input><br/>
+<input type="checkbox" id="hide_cxx17">Hide C++17 examples</input><br/>
+<input type="checkbox" id="hide_icu">Hide ICU examples</input><br/>
+<input type="checkbox" id="hide_win32">Hide Win32 examples</input><br/>
+<input type="checkbox" id="hide_qt">Hide QT examples</input><br/>
+
+<br/>
+<fieldset>
+  <legend>Legend</legend>
+  <span style="color: grey">Unknown solution</span><br/>
+  <span style="color: green">Reasonable solution</span><br/>
+  <span style="color: blue">Partial solution</span><br/>
+  <span style="color: orange">Ugly/impractical solution</span><br/>
+  <span style="color: red">No solution</span><br/>
+</fieldset>
+
+<ol class="use_cases">
+<li><span>Code point enumeration:</span>
+  <ol class="use_cases">
+    <li><span>Given <em>std::string</em> <em>s</em> encoded with encoding
+        <em>E</em>, enumerate all encoded code points with error checking</span>
+      <div class="use_case">
+        <fieldset class="use_case_example std-text-wg">
+          <legend>std-text-wg</legend>
+        </fieldset>
+        <fieldset class="use_case_example cxx17" solution="no">
+          <legend>C++17</legend>
+        </fieldset>
+        <fieldset class="use_case_example icu">
+          <legend>ICU</legend>
+        </fieldset>
+        <fieldset class="use_case_example win32">
+          <legend>Win32</legend>
+        </fieldset>
+        <fieldset class="use_case_example qt">
+          <legend>QT</legend>
+        </fieldset>
+      </div>
+    </li>
+    <li><span>Given <em>std::string</em> <em>s</em> encoded as UTF-8,
+        enumerate all encoded code points with error checking</span>
+      <div class="use_case">
+        <fieldset class="use_case_example std-text-wg">
+          <legend>std-text-wg</legend>
+        </fieldset>
+        <fieldset class="use_case_example cxx17" solution="ugly">
+          <legend>C++17</legend>
+<pre>
+// Produces code points of type char32_t.
+// Uses interfaces deprecated in C++17.
+// libstdcxx is buggy; returns std::codecvt_base::partial too eagerly.
+
+const char *from_next = s.data();
+const char *from_end = s.data() + s.size();
+std::codecvt_utf8&lt;char32_t&gt; utf8_converter;
+std::mbstate_t state = std::mbstate_t{};
+std::codecvt_base::result r;
+do {
+  char32_t to[1];
+  char32_t *to_next = &amp;to[0];
+  char32_t *to_end = &amp;to[1];
+  r = utf8_converter.in(
+    state,
+    from_next, from_end, from_next,
+    to_next, to_end, to_next);
+  switch (r) {
+    case std::codecvt_base::ok:
+      // Use code point as t[0]...
+      break;
+    case std::codecvt_base::error:
+      // error handling...
+      break;
+    case std::codecvt_base::partial:
+      // error handling...
+      break;
+    case std::codecvt_base::noconv:
+      // error handling...
+      break;
+  }
+} while (r == std::codecvt_base::ok &amp;&amp;
+         from_next != from_end);
+</pre>
+        </fieldset>
+        <fieldset class="use_case_example icu">
+          <legend>ICU</legend>
+        </fieldset>
+        <fieldset class="use_case_example win32">
+          <legend>Win32</legend>
+        </fieldset>
+        <fieldset class="use_case_example qt">
+          <legend>QT</legend>
+        </fieldset>
+      </div>
+    </li>
+    <li><span>Given <em>std::u16string</em> <em>s</em> encoded as UTF-16,
+        enumerate all encoded code points with error checking</span>
+      <div class="use_case">
+        <fieldset class="use_case_example std-text-wg">
+          <legend>std-text-wg</legend>
+        </fieldset>
+        <fieldset class="use_case_example cxx17" solution="ugly">
+          <legend>C++17</legend>
+<pre>
+// Produces code points of type char32_t.
+// Uses interfaces deprecated in C++17.
+// Requires knowing if the system is big or little endian.
+// libstdcxx is buggy; returns std::codecvt_base::partial too eagerly.
+
+const char16_t *from_next = s.data();
+const char16_t *from_end = s.data() + s.size();
+std::codecvt_utf16&lt;char32_t, 0x10ffffUL, std::little_endian&gt; utf16_converter;
+std::mbstate_t state = std::mbstate_t{};
+std::codecvt_base::result r;
+do {
+  char32_t to[1];
+  char32_t *to_next = &amp;to[0];
+  char32_t *to_end = &amp;to[1];
+  r = utf16_converter.in(
+    state,
+    from_next, from_end, from_next,
+    to_next, to_end, to_next);
+  switch (r) {
+    case std::codecvt_base::ok:
+      // Use code point as t[0]...
+      break;
+    case std::codecvt_base::error:
+      // error handling...
+      break;
+    case std::codecvt_base::partial:
+      // error handling...
+      break;
+    case std::codecvt_base::noconv:
+      // error handling...
+      break;
+  }
+} while (r == std::codecvt_base::ok &amp;&amp;
+         from_next != from_end);
+</pre>
+        </fieldset>
+        <fieldset class="use_case_example icu">
+          <legend>ICU</legend>
+        </fieldset>
+        <fieldset class="use_case_example win32">
+          <legend>Win32</legend>
+        </fieldset>
+        <fieldset class="use_case_example qt">
+          <legend>QT</legend>
+        </fieldset>
+      </div>
+    </li>
+    <li><span>Given <em>std::u32string</em> <em>s</em> encoded as UTF-32,
+        enumerate all encoded code points with error checking</span>
+      <div class="use_case">
+        <fieldset class="use_case_example std-text-wg">
+          <legend>std-text-wg</legend>
+        </fieldset>
+        <fieldset class="use_case_example cxx17" solution="ugly">
+          <legend>C++17</legend>
+<pre>
+// Produces code points of type char32_t.
+// Requires manual error detection of invalid code points.
+
+for (auto cp : s) {
+  if (cp &lt; 0xD800U ||
+      (cp &gt;= 0xE000U &amp;&amp; cp &lt;= 0x10FFFFU))
+  {
+    // Use code point as cp...
+  } else {
+    // error handling...
+  }
+}
+</pre>
+        </fieldset>
+        <fieldset class="use_case_example icu">
+          <legend>ICU</legend>
+        </fieldset>
+        <fieldset class="use_case_example win32">
+          <legend>Win32</legend>
+        </fieldset>
+        <fieldset class="use_case_example qt">
+          <legend>QT</legend>
+        </fieldset>
+      </div>
+    </li>
+  </ol>
+</li>
+<li><span>Search (for a non-normalized code point sequence)</span>
+  <ol class="use_cases">
+    <li><span>Given <em>std::string</em> <em>s</em> encoded with encoding
+        <em>E</em>, provide an iterator pointing to the first code unit of
+        the first code unit sequence that encodes a code point sequence
+        matching the code points specified in range <em>cps</em></span>
+      <div class="use_case">
+        <fieldset class="use_case_example std-text-wg">
+          <legend>std-text-wg</legend>
+        </fieldset>
+        <fieldset class="use_case_example cxx17">
+          <legend>C++17</legend>
+        </fieldset>
+        <fieldset class="use_case_example icu">
+          <legend>ICU</legend>
+        </fieldset>
+        <fieldset class="use_case_example win32">
+          <legend>Win32</legend>
+        </fieldset>
+        <fieldset class="use_case_example qt">
+          <legend>QT</legend>
+        </fieldset>
+      </div>
+    </li>
+    <li><span>Given <em>std::string</em> <em>s</em> encoded as UTF-8,
+        provide an iterator pointing to the first code unit of the first code
+        unit sequence that encodes a code point sequence matching the code</span>
+        points specified in range <em>cps</em>.
+      <div class="use_case">
+        <fieldset class="use_case_example std-text-wg">
+          <legend>std-text-wg</legend>
+        </fieldset>
+        <fieldset class="use_case_example cxx17">
+          <legend>C++17</legend>
+        </fieldset>
+        <fieldset class="use_case_example icu">
+          <legend>ICU</legend>
+        </fieldset>
+        <fieldset class="use_case_example win32">
+          <legend>Win32</legend>
+        </fieldset>
+        <fieldset class="use_case_example qt">
+          <legend>QT</legend>
+        </fieldset>
+      </div>
+    </li>
+    <li><span>Given <em>std::u16string</em> <em>s</em> encoded as UTF-16,
+        provide an iterator pointing to the first code unit of the first code
+        unit sequence that encodes a code point sequence matching the code</span>
+        points specified in range <em>cps</em>.
+      <div class="use_case">
+        <fieldset class="use_case_example std-text-wg">
+          <legend>std-text-wg</legend>
+        </fieldset>
+        <fieldset class="use_case_example cxx17">
+          <legend>C++17</legend>
+        </fieldset>
+        <fieldset class="use_case_example icu">
+          <legend>ICU</legend>
+        </fieldset>
+        <fieldset class="use_case_example win32">
+          <legend>Win32</legend>
+        </fieldset>
+        <fieldset class="use_case_example qt">
+          <legend>QT</legend>
+        </fieldset>
+      </div>
+    </li>
+    <li><span>Given <em>std::u32string</em> <em>s</em> encoded as UTF-32,
+        provide an iterator pointing to the first code unit of the first code
+        unit sequence that encodes a code point sequence matching the code
+        points specified in range <em>cps</em></span>
+      <div class="use_case">
+        <fieldset class="use_case_example std-text-wg">
+          <legend>std-text-wg</legend>
+        </fieldset>
+        <fieldset class="use_case_example cxx17">
+          <legend>C++17</legend>
+        </fieldset>
+        <fieldset class="use_case_example icu">
+          <legend>ICU</legend>
+        </fieldset>
+        <fieldset class="use_case_example win32">
+          <legend>Win32</legend>
+        </fieldset>
+        <fieldset class="use_case_example qt">
+          <legend>QT</legend>
+        </fieldset>
+      </div>
+    </li>
+  </ol>
+</li>
+</ol>
+
+</body>
