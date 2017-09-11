@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <br/>
 <fieldset>
   <legend>Legend</legend>
-  <span style="color: grey">Unknown solution</span><br/>
+  <span style="color: grey">Unidentified solution</span><br/>
   <span style="color: green">Reasonable solution</span><br/>
   <span style="color: blue">Partial solution</span><br/>
   <span style="color: orange">Ugly/impractical solution</span><br/>
@@ -173,8 +173,42 @@ document.addEventListener('DOMContentLoaded', function() {
     <li><span>Given <em>std::string</em> <em>s</em> encoded with encoding
         <em>E</em>, enumerate all encoded code points with error checking</span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg">
+        <fieldset class="use_case_example std-text-wg" solution="yes">
           <legend>std-text-wg</legend>
+<pre>
+// Produces code points of type std::experimental::text::character.
+
+// Error handling via exceptions:
+auto tv =
+  std::experimental::text::make_text_view&lt;E&gt;(s);
+try {
+  for (auto c : tv) {
+    // Use code point as c.get_code_point()...
+  }
+} catch(text_decode_error e) {
+  // error handling...
+}
+
+// Error handling via character substitution:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    E,
+    std::experimental::text::text_permissive_error_policy&gt;(s);
+for (auto c : tv) {
+  // Use code point as c.get_code_point()...
+}
+
+// Proactive error handling:
+auto tv =
+  std::experimental::text::make_text_view&lt;E&gt;(s);
+for (auto tvi = tv.begin(); tvi != tv.end(); ++tvi) {
+  if (tvi.error_occurred()) {
+    // error handling...
+  } else {
+    // Use code point as tvi-&gt;get_code_point()...
+  }
+}
+</pre>
         </fieldset>
         <fieldset class="use_case_example cxx17" solution="no">
           <legend>C++17</legend>
@@ -193,8 +227,44 @@ document.addEventListener('DOMContentLoaded', function() {
     <li><span>Given <em>std::string</em> <em>s</em> encoded as UTF-8,
         enumerate all encoded code points with error checking</span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg">
+        <fieldset class="use_case_example std-text-wg" solution="yes">
           <legend>std-text-wg</legend>
+<pre>
+// Produces code points of type std::experimental::text::character.
+
+// Error handling via exceptions:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    std::experimental::text::utf8_encoding&gt;(s);
+try {
+  for (auto c : tv) {
+    // Use code point as c.get_code_point()...
+  }
+} catch(text_decode_error e) {
+  // error handling...
+}
+
+// Error handling via character substitution:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    std::experimental::text::utf8_encoding,
+    std::experimental::text::text_permissive_error_policy&gt;(s);
+for (auto c : tv) {
+  // Use code point as c.get_code_point()...
+}
+
+// Proactive error handling:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    std::experimental::text::utf8_encoding&gt;(s);
+for (auto tvi = tv.begin(); tvi != tv.end(); ++tvi) {
+  if (tvi.error_occurred()) {
+    // error handling...
+  } else {
+    // Use code point as tvi-&gt;get_code_point()...
+  }
+}
+</pre>
         </fieldset>
         <fieldset class="use_case_example cxx17" solution="ugly">
           <legend>C++17</legend>
@@ -248,8 +318,44 @@ do {
     <li><span>Given <em>std::u16string</em> <em>s</em> encoded as UTF-16,
         enumerate all encoded code points with error checking</span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg">
+        <fieldset class="use_case_example std-text-wg" solution="yes">
           <legend>std-text-wg</legend>
+<pre>
+// Produces code points of type std::experimental::text::character.
+
+// Error handling via exceptions:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    std::experimental::text::utf16_encoding&gt;(s);
+try {
+  for (auto c : tv) {
+    // Use code point as c.get_code_point()...
+  }
+} catch(text_decode_error e) {
+  // error handling...
+}
+
+// Error handling via character substitution:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    std::experimental::text::utf16_encoding,
+    std::experimental::text::text_permissive_error_policy&gt;(s);
+for (auto c : tv) {
+  // Use code point as c.get_code_point()...
+}
+
+// Proactive error handling:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    std::experimental::text::utf16_encoding&gt;(s);
+for (auto tvi = tv.begin(); tvi != tv.end(); ++tvi) {
+  if (tvi.error_occurred()) {
+    // error handling...
+  } else {
+    // Use code point as tvi-&gt;get_code_point()...
+  }
+}
+</pre>
         </fieldset>
         <fieldset class="use_case_example cxx17" solution="ugly">
           <legend>C++17</legend>
@@ -304,8 +410,44 @@ do {
     <li><span>Given <em>std::u32string</em> <em>s</em> encoded as UTF-32,
         enumerate all encoded code points with error checking</span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg">
+        <fieldset class="use_case_example std-text-wg" solution="yes">
           <legend>std-text-wg</legend>
+<pre>
+// Produces code points of type std::experimental::text::character.
+
+// Error handling via exceptions:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    std::experimental::text::utf32_encoding&gt;(s);
+try {
+  for (auto c : tv) {
+    // Use code point as c.get_code_point()...
+  }
+} catch(text_decode_error e) {
+  // error handling...
+}
+
+// Error handling via character substitution:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    std::experimental::text::utf32_encoding,
+    std::experimental::text::text_permissive_error_policy&gt;(s);
+for (auto c : tv) {
+  // Use code point as c.get_code_point()...
+}
+
+// Proactive error handling:
+auto tv =
+  std::experimental::text::make_text_view&lt;
+    std::experimental::text::utf32_encoding&gt;(s);
+for (auto tvi = tv.begin(); tvi != tv.end(); ++tvi) {
+  if (tvi.error_occurred()) {
+    // error handling...
+  } else {
+    // Use code point as tvi-&gt;get_code_point()...
+  }
+}
+</pre>
         </fieldset>
         <fieldset class="use_case_example cxx17" solution="ugly">
           <legend>C++17</legend>
