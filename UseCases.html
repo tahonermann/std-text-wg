@@ -177,7 +177,9 @@ document.addEventListener('DOMContentLoaded', function() {
           <legend>std-text-wg</legend>
 <pre>
 // Produces code points of type std::experimental::text::character.
+</pre>
 
+<pre>
 // Error handling via exceptions:
 auto tv =
   std::experimental::text::make_text_view&lt;E&gt;(s);
@@ -188,7 +190,9 @@ try {
 } catch(text_decode_error e) {
   // error handling...
 }
+</pre>
 
+<pre>
 // Error handling via character substitution:
 auto tv =
   std::experimental::text::make_text_view&lt;
@@ -197,7 +201,9 @@ auto tv =
 for (auto c : tv) {
   // Use code point as c.get_code_point()...
 }
+</pre>
 
+<pre>
 // Proactive error handling:
 auto tv =
   std::experimental::text::make_text_view&lt;E&gt;(s);
@@ -231,7 +237,9 @@ for (auto tvi = tv.begin(); tvi != tv.end(); ++tvi) {
           <legend>std-text-wg</legend>
 <pre>
 // Produces code points of type std::experimental::text::character.
+</pre>
 
+<pre>
 // Error handling via exceptions:
 auto tv =
   std::experimental::text::make_text_view&lt;
@@ -243,7 +251,9 @@ try {
 } catch(text_decode_error e) {
   // error handling...
 }
+</pre>
 
+<pre>
 // Error handling via character substitution:
 auto tv =
   std::experimental::text::make_text_view&lt;
@@ -252,7 +262,9 @@ auto tv =
 for (auto c : tv) {
   // Use code point as c.get_code_point()...
 }
+</pre>
 
+<pre>
 // Proactive error handling:
 auto tv =
   std::experimental::text::make_text_view&lt;
@@ -322,7 +334,9 @@ do {
           <legend>std-text-wg</legend>
 <pre>
 // Produces code points of type std::experimental::text::character.
+</pre>
 
+<pre>
 // Error handling via exceptions:
 auto tv =
   std::experimental::text::make_text_view&lt;
@@ -334,7 +348,9 @@ try {
 } catch(text_decode_error e) {
   // error handling...
 }
+</pre>
 
+<pre>
 // Error handling via character substitution:
 auto tv =
   std::experimental::text::make_text_view&lt;
@@ -343,7 +359,9 @@ auto tv =
 for (auto c : tv) {
   // Use code point as c.get_code_point()...
 }
+</pre>
 
+<pre>
 // Proactive error handling:
 auto tv =
   std::experimental::text::make_text_view&lt;
@@ -414,7 +432,9 @@ do {
           <legend>std-text-wg</legend>
 <pre>
 // Produces code points of type std::experimental::text::character.
+</pre>
 
+<pre>
 // Error handling via exceptions:
 auto tv =
   std::experimental::text::make_text_view&lt;
@@ -426,7 +446,9 @@ try {
 } catch(text_decode_error e) {
   // error handling...
 }
+</pre>
 
+<pre>
 // Error handling via character substitution:
 auto tv =
   std::experimental::text::make_text_view&lt;
@@ -435,7 +457,9 @@ auto tv =
 for (auto c : tv) {
   // Use code point as c.get_code_point()...
 }
+</pre>
 
+<pre>
 // Proactive error handling:
 auto tv =
   std::experimental::text::make_text_view&lt;
