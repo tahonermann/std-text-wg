@@ -6,11 +6,12 @@
 
 <style type="text/css">
 
-#hide_stdtext:checked ~ * fieldset.std-text-wg { display:none; visibility:hidden }
-#hide_cxx17:checked   ~ * fieldset.cxx17       { display:none; visibility:hidden }
-#hide_icu:checked     ~ * fieldset.icu         { display:none; visibility:hidden }
-#hide_win32:checked   ~ * fieldset.win32       { display:none; visibility:hidden }
-#hide_qt:checked      ~ * fieldset.qt          { display:none; visibility:hidden }
+#hide_text:checked      ~ * fieldset.text      { display:none; visibility:hidden }
+#hide_text_view:checked ~ * fieldset.text_view { display:none; visibility:hidden }
+#hide_cxx17:checked     ~ * fieldset.cxx17     { display:none; visibility:hidden }
+#hide_icu:checked       ~ * fieldset.icu       { display:none; visibility:hidden }
+#hide_win32:checked     ~ * fieldset.win32     { display:none; visibility:hidden }
+#hide_qt:checked        ~ * fieldset.qt        { display:none; visibility:hidden }
 fieldset.use_case_example {
   float: left;
   margin: 2px;
@@ -151,7 +152,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <div id="toc">Use cases:</div>
 
 <br/>
-<input type="checkbox" id="hide_stdtext">Hide std-text-wg examples</input><br/>
+<input type="checkbox" id="hide_text">Hide text examples</input><br/>
+<input type="checkbox" id="hide_text_view">Hide text_view examples</input><br/>
 <input type="checkbox" id="hide_cxx17">Hide C++17 examples</input><br/>
 <input type="checkbox" id="hide_icu">Hide ICU examples</input><br/>
 <input type="checkbox" id="hide_win32">Hide Win32 examples</input><br/>
@@ -173,8 +175,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <li><span>Given <em>std::string</em> <em>s</em> encoded with encoding
         <em>E</em>, enumerate all encoded code points with error checking</span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg" solution="yes">
-          <legend>std-text-wg</legend>
+        <fieldset class="use_case_example text_view" solution="yes">
+          <legend>text_view</legend>
 <pre>
 // Produces code points of type std::experimental::text::character.
 </pre>
@@ -233,8 +235,8 @@ for (auto tvi = tv.begin(); tvi != tv.end(); ++tvi) {
     <li><span>Given <em>std::string</em> <em>s</em> encoded as UTF-8,
         enumerate all encoded code points with error checking</span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg" solution="yes">
-          <legend>std-text-wg</legend>
+        <fieldset class="use_case_example text_view" solution="yes">
+          <legend>text_view</legend>
 <pre>
 // Produces code points of type std::experimental::text::character.
 </pre>
@@ -330,8 +332,8 @@ do {
     <li><span>Given <em>std::u16string</em> <em>s</em> encoded as UTF-16,
         enumerate all encoded code points with error checking</span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg" solution="yes">
-          <legend>std-text-wg</legend>
+        <fieldset class="use_case_example text_view" solution="yes">
+          <legend>text_view</legend>
 <pre>
 // Produces code points of type std::experimental::text::character.
 </pre>
@@ -428,8 +430,8 @@ do {
     <li><span>Given <em>std::u32string</em> <em>s</em> encoded as UTF-32,
         enumerate all encoded code points with error checking</span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg" solution="yes">
-          <legend>std-text-wg</legend>
+        <fieldset class="use_case_example text_view" solution="yes">
+          <legend>text_view</legend>
 <pre>
 // Produces code points of type std::experimental::text::character.
 </pre>
@@ -510,8 +512,8 @@ for (auto cp : s) {
         the first code unit sequence that encodes a code point sequence
         matching the code points specified in range <em>cps</em></span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg">
-          <legend>std-text-wg</legend>
+        <fieldset class="use_case_example text_view">
+          <legend>text_view</legend>
         </fieldset>
         <fieldset class="use_case_example cxx17">
           <legend>C++17</legend>
@@ -532,8 +534,8 @@ for (auto cp : s) {
         unit sequence that encodes a code point sequence matching the code</span>
         points specified in range <em>cps</em>.
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg">
-          <legend>std-text-wg</legend>
+        <fieldset class="use_case_example text_view">
+          <legend>text_view</legend>
         </fieldset>
         <fieldset class="use_case_example cxx17">
           <legend>C++17</legend>
@@ -554,8 +556,8 @@ for (auto cp : s) {
         unit sequence that encodes a code point sequence matching the code</span>
         points specified in range <em>cps</em>.
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg">
-          <legend>std-text-wg</legend>
+        <fieldset class="use_case_example text_view">
+          <legend>text_view</legend>
         </fieldset>
         <fieldset class="use_case_example cxx17">
           <legend>C++17</legend>
@@ -576,8 +578,8 @@ for (auto cp : s) {
         unit sequence that encodes a code point sequence matching the code
         points specified in range <em>cps</em></span>
       <div class="use_case">
-        <fieldset class="use_case_example std-text-wg">
-          <legend>std-text-wg</legend>
+        <fieldset class="use_case_example text_view">
+          <legend>text_view</legend>
         </fieldset>
         <fieldset class="use_case_example cxx17">
           <legend>C++17</legend>
