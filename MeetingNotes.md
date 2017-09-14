@@ -1,9 +1,99 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, September 13th from 2:30pm-4:00pm EDT.
+The next meeting is scheduled for Wednesday, September 27th from 2:30pm-4:00pm EDT.
 
+- [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# September 13th, 2017
+
+## Draft agenda:
+- Identify and discuss use cases that we would like to address and how our existing collection
+  of proposals maps to those use cases.
+- Goals for the group
+  - For Albuquerque.
+  - For beyond Albuquerque.
+- General vision for C++ and Unicode support.
+  - How do we merge what we're all working on into something cohesive and complementary?
+  - What are the major gaps that remain?
+- Goals and scheduling for the next meeting. 
+
+## Meeting summary:
+- Attendees:
+  - Tom Honermann
+  - Zach Laine
+  - Michael Spencer
+- We reviewed the UseCases.html document
+  (http://htmlpreview.github.io/?https://github.com/tahonermann/std-text-wg/blob/master/UseCases.html)
+  for its suitability in recording use cases applicable to our goals and as a presentation device for
+  comparing existing solutions.
+  - Consensus was that this document format will suffice and is useful.
+  - The document currently only has placeholder examples for ICU, Win32, and QT.  Other libraries
+    (POSIX, iconv) were briefly discussed for their applicability in addressing use cases.  Both
+    POSIX and iconv are only relevant for a few of the use cases and we can add relevant examples
+    where applicable.
+  - It was noted that we don't have placeholder examples for Apple's Unicode libraries (Cocoa Text
+    System).  We should research Apple's solutions as part of this effort.
+  - It was also noted that comparisons with solutions available for other languages (Swift, Rust,
+    Objective-C, etc...) may be useful.  Such examples would be welcome as well.
+- Next up was identification of use cases.  We settled on the following high-level list:
+  - Storage oriented (containers storing code units with an associated encoding):
+    - String-like.
+    - Rope-like.
+  - Stream oriented (streams providing/consuming code units with an associated encoding):
+    - Not interested in facet based solutions, but rather view/iterator-pair range adapters.
+  - Encoding/decoding:
+    - Run-time/locale dependent vs static.
+    - Code point enumeration.
+    - Grapheme cluster enumeration.
+  - Generation/mutation:
+    - Transcoding.
+    - Normalization (of code point sequences; particularly Unicode normalization).
+    - Append/insert (to a stored text object).
+    - Remove (from a stored text object).
+    - Splice/replace (within a stored text object).
+    - Modify (a code unit sequence within a stored text object, possibly via a view,
+      without insert/erase).
+  - Algorithms:
+    - Locale influence.
+    - Upper/lower casing.
+      - In place vs copy.
+    - Search:
+      - For a specific code point sequence (would not match differently normalized
+        code point sequences).
+      - For a code point sequence matching a normalized form.  (would match a differently
+        normalized code point sequence; it was observed that a solution may not exist that
+        performs better than first normalizing the text and search term and then performing
+        an exact match search).
+      - Boundary conditions (word boundary, grapheme boundary).
+    - Comparisons/sorting:
+      - Case sensitive/insensitive.
+      - Lexicographical by code unit values.
+      - Lexicographical by code point values.
+      - Collation/locale based.
+  - Character/code point classification (letter, number, case, combining, etc...).
+- Adding example solutions to the use case document will take some effort, so we discussed
+  soliciting help via the std-proposals list, reddit, QT maintainers, etc...  We agreed to
+  do so once the doc reasonably reflects the use cases we care about for the immediate
+  future.
+- As a tangent, we discussed whether it might be worthwhile pursuing a requirement that
+  source code encoded as UTF-8 (and perhaps UTF-16, UTF-32) with a BOM be supported.  This
+  would enable portable use of characters outside the basic source character set in character
+  and string literals.  Consensus was that this may be a feasible goal.
+- The mailing deadline for Albuquerque is October 16th; a month from now.  We discussed what
+  we might be able to have prepared by then.  Time is short for all of us, especially with
+  CppCon occurring in two weeks.  One idea is to try and get the use cases document into
+  sufficient shape such that we can submit it and present it as a general outline of the
+  scope of features we're considering and a summary of existing practice.
+- We agreed that, once we have a general outline of the kinds of solutions we're pursuing,
+  then reaching out to the Unicode community would be a good action to take to confirm
+  our direction.
+
+## Assignments:
+- Tom: Get the use cases doc sufficiently up to date to solicit help.
+- Everyone: contribute example solutions for use cases.
+- Tom: Test (Tom's) text_view view/iterators over (Zach's) text/rope containers.
 
 # August 30th, 2017
 
