@@ -1,10 +1,70 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, September 27th from 2:30pm-4:00pm EDT.
+The next meeting is scheduled for Wednesday, October 11th from 2:30pm-4:00pm EDT.
 
+- [September 27th, 2017](#september-27th-2017)
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# September 27th, 2017
+
+## Draft agenda:
+- Review and discuss use cases and example solutions.
+- Goals and scheduling for the next meeting. 
+
+## Meeting summary:
+- Attendees:
+  - Tom Honermann
+  - Mark Zeren
+- Tom made a little progress editing the UseCases.html document
+  (http://htmlpreview.github.io/?https://github.com/tahonermann/std-text-wg/blob/master/UseCases.html)
+  though the changes have not yet been pushed.
+- We reviewed the in-progress changes; an added introduction and graph depicting abstractly the feature
+  landscape for text/Unicode proposals.  These changes are intended to help guide thinking about how
+  various proposals fit together and where they fit in to a componentized view of text processing.
+- Mark noted that the appearance of "grapheme cluster sequence" in the componentized view suggests a
+  Unicode centric view that may not be desirable.  Tom agreed and clarified that that wasn't the intent;
+  but that some terminology is needed to bridge between legacy encodings and Unicode encodings.  Perhaps
+  "grapheme sequence" or similar would be a better choice.
+- Mark noted that the document makes scant references to locales.  Tom agreed that updates are needed to
+  better describe how locales fit in.
+- Mark noted that interoperability with C is not mentioned either.  Tom agreed this should be addressed
+  as well.
+- Mark also provided some thoughts that are useful to guide our designs; essentially a number of
+  naturally occurring tensions that necessitate balancing trade offs:
+  - The tension between keeping things simple while enabling the full range of Unicode and legacy
+    encoding complexity.  This impacts techability and on-boarding.  Complexity arises in distinct
+    ways.  For example, ICU is a large complicated library.  `std::string` is simple by comparison
+    but using it is complicated due to its limited features: providing only a code unit view and no
+    explicitly associated encoding.
+  - The tension between desires for vocabulary types vs (standard library) building blocks.  Most
+    users probably want simple vocabulary types while experts need building blocks.  This raises the
+    question of whether some vocabulary types can, or should, be constructed from building blocks.
+    A current example is Zach's `text` class; should it be a template parameterized on an encoding,
+    potentially with an alias for a UTF-8 specialization or should it be a standalone class?
+  - The tension between behaviors that are selected at run-time vs compile-time.  For example, locale
+    settings determine the encoding used for narrow/wide strings at run-time, but the encoding of
+    Unicode strings is known at compile-time.  Another example appears in the functions exposed by
+    the ctype header; character properties may be locale dependent in general, but not for Unicode.
+- Tom posed the question of what should the semantics of a `text` vocabulary type be.  For example,
+  should enumerating its contents produce code units, code points, or graphme clusters (as Swift does)?
+  Arguably, for most uses, grapheme cluster enumeration is probably what is most useful; this is
+  the approach that most enables users to not have to think about encoding issues as it prevents
+  accidental slicing of grapheme clusters.  However, this also exposes complexity in terms of what
+  it would mean for two elements to be considered equal.  Do their code point sequences have to
+  match exactly?  What if their code point sequences are equivalent under Unicode normalization
+  rules?
+
+## Assignments:
+- Tom: Get the use cases doc sufficiently up to date to solicit help.
+- Everyone: contribute example solutions for use cases.
+- Everyone: read the Swift 4 string manifesto and string changes documents.  Perhaps review the
+  Swift string source code.
+  - https://github.com/apple/swift-evolution/blob/master/proposals/0163-string-revision-1.md
+  - https://github.com/apple/swift/blob/master/docs/StringManifesto.md
+  - https://github.com/apple/swift/blob/master/stdlib/public/core/String.swift
+- Tom: Test (Tom's) text_view view/iterators over (Zach's) text/rope containers.
 
 # September 13th, 2017
 
