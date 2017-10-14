@@ -1,11 +1,69 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, October 11th from 2:30pm-4:00pm EDT.
+The next meeting is scheduled for Wednesday, October 25th from 2:30pm-4:00pm EDT.
 
+- [October 11th, 2017](#october-11th-2017)
 - [September 27th, 2017](#september-27th-2017)
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# October 11th, 2017
+
+## Draft agenda:
+- Last meeting before Albuquerque mailing deadline.
+- Review and discuss use cases and example solutions.
+- Goals and scheduling for the next meeting.
+
+## Meeting summary:
+- Attendees:
+  - Tom Honermann
+  - Beman Dawes
+  - Florin Trofin
+  - Mark Zeren
+- The meeting started off with introductions for Florin, our new recruit.
+- We discussed proposals scope.  Florin cautioned against large sweeping proposals and
+  there was general agreement.  Tom stated that small proposals are good, but that we need
+  to keep the big picture in mind.  Beman noted that small proposals that set the foundation
+  for other proposals that build on them are desirable.  There was general agreement.
+- Tom relayed some feedback provided by Sean Parent regarding the text_view proposal.
+  - Sean is not a fan of the error policy approach and observed that error handling
+    isn't always needed.  He advocated a separate interface for validation (with error
+    handling), and for transcoding (without error handling; well-formed input is a
+    pre-condition).  The advantage being to exploit UB for performance benefit.
+  - Sean observed that a simple transcode function could be implemented on top of
+    text_view:
+    ```
+    template <class InputEncoding, class OutputEncoding, class InputIterator, class OutputIterator>
+    OutputIterator transcode(InputIterator f, InputIterator l, OutputIterator out);
+    ```
+    `std::copy()` suffices to do this today, but only between encodings that use
+    the same character set since text_view does not yet have support for transcoding
+    code points between character sets.
+- Florin brought up Adobe's open source library hosted at:
+    https://github.com/stlab/adobe_source_libraries
+  and we discussed its `copy_utf()` function:
+    https://github.com/stlab/adobe_source_libraries/blob/master/adobe/unicode.hpp#L499-L525
+  Tom noted that `std::copy()` suffices for this with text_view for UTF encodings and,
+  once character set transcoding is in place, for any encodings (though policies for how to
+  transcode code points that map 1-0 and 1-N may be an issue deserving of a specific interface).
+- Back to Sean's observations of when error checking is needed and when it is unwanted, we
+  discussed whether it made sense to specify building blocks that could be used for various
+  purposes (ala text_view and its error policies) or whether it made more sense to specify
+  interfaces for particular scenarios (validation, transcoding, enumeration) that have implicit
+  error policies and that can exploit narrow contracts.  We concluded that separate interfaces
+  should be specified such that they *can* be implemented in terms of building blocks, but
+  that are not required to be.  This would allow an implementation to, for example, make
+  direct use of SIMD instructions during transcoding without having to worry about error
+  checking.  Enumeration remains a case where different error policies may be desirable.
+- We briefly discussed again code point iteration vs (extended) graphme cluster iteration.
+  Tom is coming to the conclusion that text_view is misnamed; it should be code_point_view
+  with text_view reserved for enumeration of (extended) grapheme clusters.
+
+## Assignments:
+- Tom: Get the use cases doc sufficiently up to date to solicit help.
+- Tom: Test (Tom's) text_view view/iterators over (Zach's) text/rope containers.
+
 
 # September 27th, 2017
 
@@ -65,6 +123,7 @@ The next meeting is scheduled for Wednesday, October 11th from 2:30pm-4:00pm EDT
   - https://github.com/apple/swift/blob/master/docs/StringManifesto.md
   - https://github.com/apple/swift/blob/master/stdlib/public/core/String.swift
 - Tom: Test (Tom's) text_view view/iterators over (Zach's) text/rope containers.
+
 
 # September 13th, 2017
 
@@ -155,6 +214,7 @@ The next meeting is scheduled for Wednesday, October 11th from 2:30pm-4:00pm EDT
 - Everyone: contribute example solutions for use cases.
 - Tom: Test (Tom's) text_view view/iterators over (Zach's) text/rope containers.
 
+
 # August 30th, 2017
 
 ## Draft agenda
@@ -229,6 +289,7 @@ The next meeting is scheduled for Wednesday, October 11th from 2:30pm-4:00pm EDT
   fit in.
 - Mark volunteered to submit some UTF-8 test cases to Zach.
 - Tom: Test (Tom's) text_view view/iterators over (Zach's) text/rope containers.
+
 
 # August 16th, 2017
 
