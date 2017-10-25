@@ -1,12 +1,24 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, October 25th from 2:30pm-4:00pm EDT.
+The next meeting is tentatively scheduled for Wednesday evening, November 8th, in Albuquerque.
 
+- [October 25th, 2017](#october-25th-2017)
 - [October 11th, 2017](#october-11th-2017)
 - [September 27th, 2017](#september-27th-2017)
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# October 25th, 2017
+
+## Draft agenda:
+- Last meeting before Albuquerque.
+- Straw polls to gauge our collective perspectives on various topics.
+- Goals and scheduling for the next meeting.
+
+## Meeting summary:
+- Cancelled due to competing obligations.
+
 
 # October 11th, 2017
 
