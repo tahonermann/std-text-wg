@@ -1,6 +1,6 @@
 # Meeting Notes
 
-The next meeting is tentatively scheduled for Wednesday evening, November 8th, in Albuquerque.
+The next meeting is scheduled for Wednesday, November 29th, from 2:30-4:00pm EST.
 
 - [October 25th, 2017](#october-25th-2017)
 - [October 11th, 2017](#october-11th-2017)
