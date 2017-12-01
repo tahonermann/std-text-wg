@@ -1,13 +1,69 @@
 # Meeting Notes
 
-The next meeting is scheduled for Thursday, November 30th, from 2:30-4:00pm EST.
+The next meeting is scheduled for Wednesday, December 13th, from 2:30-4:00pm EST.
 
+- [November 30th, 2017](#november-30th-2017)
 - [October 25th, 2017](#october-25th-2017)
 - [October 11th, 2017](#october-11th-2017)
 - [September 27th, 2017](#september-27th-2017)
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# November 30th, 2017
+
+## Draft agenda:
+- Review Albuquerque.
+- Look at P0169: regex with Unicode character types
+  - Jeffrey asked if we could review this and present it in Jacksonville.
+    Otherwise, Titus will probably reject it for lack of a champion.
+
+## Meeting summary:
+- Attendees:
+  - Tom Honermann
+  - Florin Trofin
+  - Mark Zeren
+  - Zach Laine
+- The meeting started with recap of various discussions from the Albuquerque
+  meeting.  In particular, Mark summarized the discussion of iterator/range
+  layering and emphasized the desire to provide abstractions (such as extended
+  grapheme clusters) that map directly so code unit ranges (as opposed to
+  indirectly via code point ranges).
+- Tom reported progress on the char8_t proposal:
+  - New effort was inspired by perceived encouragement for char8_t at the
+    Albuquerque Unicode evening session.
+  - Support for the proposed core language changes has been implemented in a
+    fork of gcc available in the 'char8_t' branch of https://github.com/tahonermann/gcc.
+  - Support for the proposed library changes has begun for libstdc++.
+  - We discussed backward compatibility features that may be necessary.  Tom
+    favors breaking compatibility in the standard and providing migration
+    support via compiler options that implement backward compatibility features
+    such as implicit conversions from 'char8_t' pointers/references to 'char'
+    and non-strict type aliasing.
+  - Plan is to have the char8_t proposal ready for presentation to EWG and
+    LEWG in Jacksonville with a complete implementation available in gcc and,
+    hopefully, Clang.
+- Tom briefly mentioned the possibility of renaming his 'text_view' to
+  'code_point_view' and proposing that in Jacksonville, but then immediately
+  questioned the point in doing so.  If the intent is to encourage users to work
+  primarily at the extended grapheme level, then providing code point utilities
+  may be counterproductive.
+- Zach reported progress on his text library:
+  - Support for multiple error handling strategies is now available.  Support
+    for throwing exceptions or substituting replacement characters is builtin;
+    other strategies can be implemented by specifying an error handler functor
+    type for the converting iterators.
+  - Zach is starting to look into support for grapheme clusters.
+- We again discussed the merits, or lack there of, of allocators.
+- Tom requested that everyone review P0169 (regex with Unicode character types)
+  for the next meeting to collect everyone's thoughts and discuss whether any
+  of us is interested and/or willing to present it in Jacksonville.
+
+## Assignments:
+- Everyone: Review P0169.
+- Tom: Get the use cases doc sufficiently up to date to solicit help.
+- Tom: Test (Tom's) text_view view/iterators over (Zach's) text/rope containers.
+
 
 # October 25th, 2017
 
