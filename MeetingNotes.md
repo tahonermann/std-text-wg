@@ -1,7 +1,8 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, December 13th, from 2:30-4:00pm EST.
+The next meeting is scheduled for Wednesday, January 10th, from 2:30-4:00pm EST.
 
+- [December 13th, 2017](#december-13th-2017)
 - [November 30th, 2017](#november-30th-2017)
 - [October 25th, 2017](#october-25th-2017)
 - [October 11th, 2017](#october-11th-2017)
@@ -9,6 +10,63 @@ The next meeting is scheduled for Wednesday, December 13th, from 2:30-4:00pm EST
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# December 13th, 2017
+
+## Draft agenda:
+- Report feedback on P0169: regex with Unicode character types.
+- Discuss char8_t and backward compatibility approaches.
+
+## Meeting summary:
+- Attendees:
+  - Tom Honermann
+  - Zach Laine
+  - Mark Zeren
+- We discussed Zach's progress adding support for grapheme clusters:
+  - text, text_view, and rope now deal in grapheme clusters, new string, string_view, and
+    unencoded_rope classes provide code unit based functionality.  Each of these new classes
+    has an implicit UTF-8 association.
+  - The grapheme cluster iterators are bidirectional; there had previously been concerns
+    that bidirectional grapheme cluster iterators could not meet complexity requirements,
+    but that turned out not to be the case, at least not if support is limited to
+    "Stream-Safe Text Formats" (http://www.unicode.org/reports/tr15/#Stream_Safe_Text_Format).
+  - The prior checks on mutation to ensure well formed code unit sequences have been removed
+    as operating on grapheme cluster boundaries ensures mutation at acceptable points.
+- We discussed potential operations on graphemes:
+  - Comparison being code unit based (fast, handles equality but not equivalence).
+  - Comparison handling normalization (slow, handles equivalence and equality).
+  - Relational operators (correct collation depends on locale).
+- We discussed P0169 - regex with Unicode character types
+  - It appears that std::regex interfaces lack correct support for variable length encodings.
+    For example, std::regex_traits::translate() and std::regex_traits::translate_nocase()
+    are passed and return a single code unit; that isn't sufficient to identify a Unicode
+    code point for UTF-16 (and UTF-8).
+  - Mark suggested a viable option of only adding support for char32_t specializations and
+    requiring transcoding from UTF-16.  This would work around the std::regex issues with
+    variable length encoding.
+  - Ultimately, we decided not to pursue this proposal at this time in favor of focusing on
+    more foundational work.
+  - Tom noted that we should follow up with any potential std::regex replacement proposals
+    to ensure encoding is handled properly.  In particular, this might include:
+    - https://github.com/hanickadot/compile-time-regular-expressions
+- We discussed Unicode normalization and how it fits into our considerations.
+  - Mark suggested the possibility of baking normalization into the type system (implicitly
+    or explicitly) similarly to what we've been discussing for encodings.
+  - Tom suggested the idea that an application could adopt a particular normalization form
+    to go with its internal encoding.  The application would then normalize as needed at
+    application boundaries (including string literals, command line arguments, environment
+    variables/values, file I/O, networking, etc...)
+- Tom briefly provided an update on char8_t related work:
+  - Still working on completing library support for libstdc++.
+  - Github's code search facilities enabled identifying projects to use in determining
+    backward compatibility requirements.
+- Tom informed the group that Peter Bindels will join our next meeting and will present
+  what he has been working on (https://github.com/dascandy/s2).
+
+## Assignments:
+- Everyone: Think about what operations are desired on grapheme clusters.
+- Tom: Get the use cases doc sufficiently up to date to solicit help.
+
 
 # November 30th, 2017
 
