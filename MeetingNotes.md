@@ -27,10 +27,12 @@ The next meeting is scheduled for Wednesday, January 24th, from 2:30-4:00pm EST.
   - Peter Bindels
   - Mark Zeren
 - Zach provided an update on his text library:
-  - `text` now maintains its content in the FCD noramlization form.  See
+  - `text` now maintains its content in the FCC normalization form
+    (see http://www.unicode.org/notes/tn5).  This is a kind of FCD 
+    form; see TN5 previously, or
     http://www.unicode.org/L2/L2001/01371-FCD.htm
-  - A new `is_normalized()` member function allows querying the
-    normalization state.
+  - A new set of `is_normalized_nf{c,kc,d,kc}()` free functions allows
+    querying the normalization state of a sequence of code points.
   - Tailored normalization is implemented for languages and locales.
   - Support for most of the Unicode algorithms is now present.
     - Except for optional compression.
