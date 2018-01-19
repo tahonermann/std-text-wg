@@ -1,7 +1,8 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, January 10th, from 2:30-4:00pm EST.
+The next meeting is scheduled for Wednesday, January 24th, from 2:30-4:00pm EST.
 
+- [January 10th, 2018](#january-10th-2018)
 - [December 13th, 2017](#december-13th-2017)
 - [November 30th, 2017](#november-30th-2017)
 - [October 25th, 2017](#october-25th-2017)
@@ -10,6 +11,87 @@ The next meeting is scheduled for Wednesday, January 10th, from 2:30-4:00pm EST.
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# January 10th, 2018
+
+## Draft agenda:
+- Peter Bindels to present his work on std2 string and character encoding
+  support. See https://github.com/dascandy/s2/tree/master/include/s2
+- Catch up on work over the winter break.  In particular, it sounds like
+  Zach has made some good progress on grapheme cluster and collation support!
+
+## Meeting summary:
+- Attendees:
+  - Tom Honermann
+  - Zach Laine
+  - Peter Bindels
+  - Mark Zeren
+- Zach provided an update on his text library:
+  - `text` now maintains its content in the FCD noramlization form.  See
+    http://www.unicode.org/L2/L2001/01371-FCD.htm
+  - A new `is_normalized()` member function allows querying the
+    normalization state.
+  - Tailored normalization is implemented for languages and locales.
+  - Support for most of the Unicode algorithms is now present.
+    - Except for optional compression.
+- Peter provided an overview of his library and the thoughts that have
+  been motivating it.
+  - Peter's ideas and motivations felt very familiar to both Zach and
+    Tom.
+  - Peter's work currently allows implicit conversion between different
+    encodings.  We discussed the potential performance pitfalls of such
+    implicit conversions.
+- Further discussion revisited prior one-encoding-to-rule-them-all
+  conversations.
+  - We remain divided on this, but all agreed that Zach's work and the
+    feedback produced from Boost review will be valuable.
+  - Peter noted that avoiding transcoding by using UTF-16 (on Windows)
+    as the internal encoding can actually *decrease* performance due to
+    increased pressure on L1/L2 cache and less ability to take advantage
+    of short string optimizations.
+- We discussed the impact of encoding on command line arguments and
+  environment variables.
+  - It was noted that command lines and environment variable values can't
+    effectively have an associated encoding because they may contain file
+    names and, at least on POSIX, file names do not have to adhere to any
+    particular encoding.
+  - It was noted that recent versions of Windows actually enforces
+    well-formedness of UTF-16 file names.  Tom (at least) was under the
+    impression that Windows did not enforce this and treated file names
+    as sequences of 16-bit code units that were not required to be
+    well-formed UTF-16.
+  - Tom noted a discussion with Gaby that occurred on the c++std-ext
+    reflector under the title "typedef name for P0781R0" that discussed
+    handling of command line arguments and environment variable values.
+    Gaby suggested modeling a new interface on the filesystem design.
+    For example, an interface that provides `u8string()`, `u16string()`,
+    `u32string()`, etc... member functions to request values in a
+    particular encoding.  Otherwise, the data would be provided in an
+    implementation defined encoding.
+- We spent a little time discussing potential graphem cluster operations,
+  but are still spinning our wheels a bit.  The question was raised
+  regarding whether value semantics are desirable for grapheme clusters.
+  It was noted that, at a minimum, there must be convenient interfaces
+  for comparing graphme clusters to character and, possibly, string
+  literals.
+- We discussed the role Unicode normalization should play in encoded
+  string/text types.  We've so far mostly assumed that normalization
+  would not be baked into the type system.  However, it may be desirable
+  to use the type system to enforce a (internal) normalization form.
+  Taken to the extreme, we could make normalization indivisible from
+  encoding form.  e.g., `utf-8-nfd`, `utf-8-nfc`, etc...
+- We discussed goals for the next meeting in Jacksonville.  Zach suggested
+  the idea of hosting another evening session.  Tom to arrange.
+- Tom mentioned the libunistring C library as another potential source
+  of interface inspiration with regard to useful string/grapheme
+  operations.
+  - https://www.gnu.org/software/libunistring/manual/libunistring.html
+
+## Assignments:
+- Everyone: Think about what operations are desired on grapheme clusters.
+- Tom: Get the use cases doc sufficiently up to date to solicit help.
+- Tom: Arrange for another evening session in Jacksonville.
+
 
 # December 13th, 2017
 
