@@ -1,6 +1,6 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, January 24th, from 2:30-4:00pm EST.
+The next meeting is scheduled for Wednesday, January 31st, from 2:30-4:00pm EST.
 
 - [January 10th, 2018](#january-10th-2018)
 - [December 13th, 2017](#december-13th-2017)
