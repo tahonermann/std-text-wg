@@ -8,4 +8,4 @@ This repository tracks papers, projects, meeting minutes, notes, and other artif
   - [P0482: char8_t: A type for UTF-8 characters and strings](http://wg21.link/p0482)
   - [Text: What a std::string replacement for std2 might look like](https://github.com/tzlaine/text)
 - [Meeting Notes](MeetingNotes.md)
-- [Use Cases](UseCases.html) [(view HTML)](http://htmlpreview.github.io/?https://github.com/tahonermann/std-text-wg/blob/master/UseCases.html)
+- [Use Cases](UseCases.html) [(view HTML)](http://htmlpreview.github.io/?https://github.com/tahonermann/std-text-wg/blob/master/UseCases.html) (This is WIP with, well, little progress so far.  Suggestions welcome!)
