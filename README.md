@@ -1,6 +1,8 @@
 # Informal C++ Text Working Group
 This repository tracks papers, projects, meeting minutes, notes, and other artifacts created by and for a group of programmers working informally on improving C++ standards support for Unicode and text processing in general.
 
+If you would like to contribute to the discussion, please join us on Slack at https://cpplang.slack.com/messages/std-text-wg
+
 - Papers and projects currently under our purview:
   - [P0169: regex with Unicode character types](http://wg21.link/p0169)
   - [P0244: Text_view: A C++ concepts and range based character encoding and code point enumeration library](http://wg21.link/p0244)
