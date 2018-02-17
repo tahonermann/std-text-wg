@@ -4,7 +4,8 @@ This repository tracks papers, projects, meeting minutes, notes, and other artif
 If you would like to contribute to the discussion, please join us on Slack at https://cpplang.slack.com/messages/std-text-wg
 
 - Papers and projects currently under our purview:
-  - [P0169: regex with Unicode character types](http://wg21.link/p0169)
+  - ~~[P0169: regex with Unicode character types](http://wg21.link/p0169)~~
+    (Not being advocated at this time; more foundational concerns need to be addressed first)
   - [P0244: Text_view: A C++ concepts and range based character encoding and code point enumeration library](http://wg21.link/p0244)
   - [P0353: Unicode Friendly Encoding Conversions for the Standard Library](http://wg21.link/p0353)
   - [P0482: char8_t: A type for UTF-8 characters and strings](http://wg21.link/p0482)
