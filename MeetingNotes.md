@@ -1,7 +1,8 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, January 31st, from 2:30-4:00pm EST.
+The next meeting is scheduled for Wednesday, February 21st, from 2:30-4:00pm EST.
 
+- [January 31st, 2018](#january-31st-2018)
 - [January 10th, 2018](#january-10th-2018)
 - [December 13th, 2017](#december-13th-2017)
 - [November 30th, 2017](#november-30th-2017)
@@ -11,6 +12,63 @@ The next meeting is scheduled for Wednesday, January 31st, from 2:30-4:00pm EST.
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# January 31st, 2018
+
+## Draft agenda:
+- Status updates.
+- Goals for Jacksonville.
+- Normalization as part of the type system?
+- Grapheme clusters and value semantics?
+
+## Meeting summary:
+Editor's note: This meeting summary was written long after this meeting
+occurred and I find my memory of the discussion more fuzzy than normal.
+I'll endeavor to ensure meeting summaries are recorded more promptly in
+the future.  Zach and Florin are encouraged to update this summary with
+their recollections.
+
+- Attendees:
+  - Tom Honermann
+  - Zach Laine
+  - Florin Trofin
+- Zach reported his continued progress on collation tailoring.
+- Florin commented on use of ranges in text processing.  Tom and Zach
+  were happy to see him reaching similar conclusions that we had each
+  reached while working on our respective projects.  (Editor's note:
+  I wish I could remember more of this discussion).
+- The remainder of our time was predominantly spent discussing
+  normalization.
+  - As mentioned in earlier meetings, Zach is using the FCC normalization
+    form in his design.
+  - Zach noted that NFC has become a defacto preference and is recommended
+    by the W3C (https://www.w3.org/International/questions/qa-html-css-normalization)
+    - Editor's comment: I find it interesting that the reason given for
+      preferring a particular normalization form is to prevent unintended
+      mismatches of identifiers between HTML and CSS as a result of failure
+      to normalize identifier comparisons.
+  - We discussed the idea of an internal normalization form and the idea of
+    normalizing at application borders (as is typical for transcoding).  This
+    lead to discussion of normalization iterators and views.
+  - We discussed the appeal of providing text in particular normalization forms
+    via view adapters.  This has the advantage of allowing implementors freedom to
+    use whatever normalization form (if any) they deem appropriate and avoids
+    having to specify or prefer any particular form.  A disadvantage is that,
+    when text is needed in a particular normalization form in contiguous memory,
+    users would need to copy to contiguous memory (e.g., `std::string`, `std::vector`,
+    etc...).
+  - We discussed the normalization of compile-time string literals.  No
+    normalization form is currently prescribed for Unicode string literals, so
+    text in literals may be in any normalization form or none at all (or not be
+    well-formed at all).  This implies that, for text related containers that
+    enforce a particular normalization form, conversions will be required even
+    from string literals.
+  - Zach noted that text may be well-formed for both the FCC and NFC forms.
+
+## Assignments:
+- Tom: Get the use cases doc sufficiently up to date to solicit help.
+- Tom: Find a sponsor for an evening session in Jacksonville.
+
 
 # January 10th, 2018
 
