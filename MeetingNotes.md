@@ -1,7 +1,8 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, February 21st, from 2:30-4:00pm EST.
+The next meeting is scheduled for Wednesday, March 7th, from 2:30-4:00pm EST.
 
+- [February 21st, 2018](#february-21st-2018)
 - [January 31st, 2018](#january-31st-2018)
 - [January 10th, 2018](#january-10th-2018)
 - [December 13th, 2017](#december-13th-2017)
@@ -12,6 +13,106 @@ The next meeting is scheduled for Wednesday, February 21st, from 2:30-4:00pm EST
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# February 21st, 2018
+
+## Draft agenda:
+- Topics for the Jacksonville evening session.  Some topic ideas:
+  - "Common" text operations.
+  - Text is immutable (get a rope)
+  - Normalization as an implementation detail:
+    - When a particular normalization form is needed, use a view.
+    - If a contiguous code unit sequence is needed, copy from a view.
+  - Backward compatibility for char8_t.
+  - Transcoding at the borders:
+    - Command line issues.
+    - Environment variable issues.
+
+## Meeting summary:
+- Attendees:
+  - Tom Honermann
+  - Zach Laine
+  - Mark Zeren
+  - Peter Bindels
+- Mark raised concerns about our use of Slack and the fact that our discussions
+  there keep disappearing due to the 10000 message limit currently imposed on the
+  Cpplang workspace.  This results in continued rehashing of prior discussions as
+  new people join our channel.
+  - It was suggested that we could setup a separate workspace just for our group;
+    this would at least give us our own 10000 message limit.
+  - A suggestion was made to use Google Groups or similar.  Tom noted that the
+    benefits of immediate discussion that takes place in a chat facility are
+    difficult to reproduce in an email list.  But there was general agreement that
+    we have no reason not to setup a Google Group.  Tom agreed to do so.  The new
+    group is available at https://groups.google.com/forum/#!forum/std-text-wg.
+- Next up was discussion of an agenda for our planned evening session in Jacksonville.
+  We started off with the items from the draft agenda.
+  - "Common" text operations:
+    - Tom noted that this overlaps with our previous intent to draft a use cases
+      document (the one that Tom has completely failed to follow up on but still
+      intends to do).  The idea would be to help identify gaps and biases in our
+      own experience.  The discussion might help to address the code points vs
+      grapheme concerns and help us answer whether 1) there should be a default
+      mode of operation and, 2) if so, should it be code point or grapheme based.
+    - Zach observed that the Unicode standard already documents, at least at a low
+      level, all of the operations users might want to do.  For example, collation,
+      case mapping, etc...  As long as the provided interfaces expose what Unicode
+      documents, then additional abstractions can be built on top as desired.
+    - We then segued into a discussion of locales; should interfaces eschew, permit
+      or require locale selection via explicit parameters?
+      - Peter observed that having to forward locale options around throughout an
+        entire application is undesirable and problematic.
+      - We discussed a few alternatives such as global or thread local locale state
+        but no conclusions were reached.
+      - Zach noted that collation tailoring effectively prohibits a static set of
+        locales; e.g., potential locales can't be statically enumerated.
+      - We briefly discussed locales as part of the type system, but concluded that
+        locales are fundamentally run-time bound.
+  - Normalization as an implementation detail:
+    - Tom repeated a perspective that, when a particular normalization form is
+      needed, use a view adapter and, if a contiguous code unit sequence is needed,
+      copy from a view.
+  - Text immutability:
+    - Tom asked about use cases for mutating text in place as opposed to using a
+      rope or other segmented data structure to overlay edits.
+    - Peter observed that ropes are great for such purposes when dealing with large
+      text, but that in-place mutation works well for smallish strings.
+    - Tom noted that a benefit of edits-via-rope is that iterators into the underlying
+      text are not invalidated.
+    - It was acknowledged that the ability to append is common and necessary.  There
+      is a case to be made for string builders.
+    - Mark described a desire for a non-allocating rope.  The use case is to
+      conceptually concatenate some number of strings without necessarily allocating
+      storage for the combined result.  Peter noted that his rope implementation
+      supports this:
+      - https://github.com/dascandy/s2/blob/master/include/s2/detail/rope.h#L26
+  - Transcoding at the borders:
+    - We discussed the feasibility of mandating a specific internal encoding and
+      requiring transcoding on I/O.
+    - Tom expressed an intent to write a paper addressing command lines and environment
+      variables.
+  - Status updates:
+    - Tom suggested that we could present status updates on our respective projects
+      (on Zach's text, Tom's text_view, char8_t).
+    - As part of discussing char8_t, we could specifically discuss backward compatibility.
+- Discussion then moved on to current status updates:
+  - From Zach:
+    - The Unicode line break algorithm is really complicated.
+    - Currently working on bidirectional algorithm support.
+    - Next up is line breaking, case mapping, finishing up collation tailoring.
+    - Zach described some interesting properties of Unicode collation; proper collation
+      requires comparing full strings due to multiple weight levels.  Basically,
+      a collation algorithm can not terminate early.
+    - We discussed the idea of shareable test infrastructure for some of the work
+      Zach has been doing.
+  - From Tom:
+    - The char8_t implementation is now complete:
+      - https://github.com/tahonermann/gcc/tree/char8_t
+
+## Assignments:
+- Tom: Get the use cases doc sufficiently up to date to solicit help.
+- Tom: Finalize evening session in Jacksonville.
+
 
 # January 31st, 2018
 
