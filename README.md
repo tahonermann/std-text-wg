@@ -1,7 +1,7 @@
 # Informal C++ Text Working Group
 This repository tracks papers, projects, meeting minutes, notes, and other artifacts created by and for a group of programmers working informally on improving C++ standards support for Unicode and text processing in general.
 
-If you would like to contribute to the discussion, please join us on [<img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" height="16"/>Slack](https://cpplang.slack.com/messages/std-text-wg) at https://cpplang.slack.com/messages/std-text-wg
+If you would like to contribute to the discussion, please join us on [<img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" height="16"/>Slack](https://cpplang.slack.com/messages/std-text-wg) at https://cpplang.slack.com/messages/std-text-wg or Google Groups at https://groups.google.com/forum/#!forum/std-text-wg.
 
 - Papers and projects currently under our purview:
   - ~~[P0169: regex with Unicode character types](http://wg21.link/p0169)~~
