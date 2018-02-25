@@ -138,7 +138,15 @@ their recollections.
   were happy to see him reaching similar conclusions that we had each
   reached while working on our respective projects.  (Editor's note:
   I wish I could remember more of this discussion).
-  - [Florin's notes] Florin suggested to use a stream-oriented approach wrt normalization: If we keep the internal encoding in FCC and the clients need a read-only view for the text but with a different normalization encoding (FCD for example) - by having this stream oriented interface we avoid memory copies (you can do the conversion on the fly, lazily). ICU doesn't do this (they use a pointer/size buffer-oriented approach) which is problematic, both in terms of interface (doesn't play nicely with containers) and also performance - eagerly applies operations on the whole buffer.
+  - [Florin's notes] Florin suggested to use a stream-oriented approach
+    wrt normalization: If we keep the internal encoding in FCC and the
+    clients need a read-only view for the text but with a different
+    normalization encoding (FCD for example) - by having this stream
+    oriented interface we avoid memory copies (you can do the conversion
+    on the fly, lazily). ICU doesn't do this (they use a pointer/size
+    buffer-oriented approach) which is problematic, both in terms of
+    interface (doesn't play nicely with containers) and also
+    performance - eagerly applies operations on the whole buffer.
 - The remainder of our time was predominantly spent discussing
   normalization.
   - As mentioned in earlier meetings, Zach is using the FCC normalization
