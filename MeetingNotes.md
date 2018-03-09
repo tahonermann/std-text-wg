@@ -1,7 +1,8 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, March 7th, from 2:30-4:00pm EST.
+The next meeting is scheduled for Wednesday, March 28th, from 2:30-4:00pm EST.
 
+- [March 7th, 2018](#march-7th-2018)
 - [February 21st, 2018](#february-21st-2018)
 - [January 31st, 2018](#january-31st-2018)
 - [January 10th, 2018](#january-10th-2018)
@@ -13,6 +14,97 @@ The next meeting is scheduled for Wednesday, March 7th, from 2:30-4:00pm EST.
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+# March 7th, 2018
+
+## Draft agenda:
+- Discussion of JeanHeyd's and Martinho's prior Unicode related efforts.
+  JeanHeyd had previously experimented with basic_text and basic_text_view
+  classes and Martinho is the author of Ogonek (https://github.com/libogonek/ogonek).
+
+## Meeting summary:
+- Attendees:
+  - Tom Honermann
+  - Peter Bindels
+  - JeanHyde Meneide
+  - Corentin Jabot
+  - Mark Zeren
+  - R. Martinho Fernandez
+- First up was a round of introductions in honor of our new attendees.
+- JeanHyde presented his prior work on `text_view` and `text` types.
+  - <FIXME: link to presentation>
+  - Tom loved that JeanHyde's presentation could almost be used as-is for
+    his own `text_view` implementation!
+  - Notable similarities to Tom's `text_view`:
+    - Naming.
+    - Both are based on range concepts.
+    - Both use low level encode/decode interfaces wrapped by iterator classes.
+    - JeanHyde's `text` closely matches what Tom has planned to provide
+      for approximately forever, but still doesn't.
+    - Default encodings are deduced based on code unit type (`char`,
+      `char16_t`, etc...)
+    - Error policies are used to allow different error handling.  By default,
+      exceptions are thrown, but a policy is provided to substitute a
+      replacement character.
+    - We have both struggled with being unable to differentiate `"text"` and
+      `u8"text"`.
+  - Notable differences from Tom's `text_view`:
+    - UTF-8 is assumed as the default encoding for `char` based strings; Tom's
+      implementation assumes the implementation defined character encoding.
+    - The active error policy can be overridden on a per-operation basis
+      (for at least some operations).  This ability never occurred to Tom.
+    - Relational operators are provided; Tom's implementation doesn't (yet?)
+      provide them.
+  - Design choices we discussed:
+    - Implicit converting constructors for `text` that transcode from other
+      encodings.
+      - Potentially undesirable due to hidden performance costs.
+      - Compatible encodings (e.g., ASCII as a subset of UTF-8) allowed
+        an optimization to use memcpy rather than transcoding.
+        - JeanHyde remarked that this had a tendency to produce broken UTF-8
+          when invalid ASCII sequences were provided.
+        - Tom noted that broken UTF-8 seemed reasonable in that case since
+          a precondition was violated.
+        - Mark noted that UB could be good for release builds, but for debug
+          builds, validation could be desirable.
+    - Normalization forms.  Choose one?  Provide as views?
+    - Relational operators.  [Editor's note: I think JeanHyde mentioned that
+      these operators implemented canonical equivalence, but I don't recall for
+      sure.]
+- Martinho discussed his work on Ogonek.
+  - https://github.com/libogonek/ogonek
+  - Like all efforts we've discussed so far, much fun was had experimenting
+    with error handling approaches.
+  - Layering of segmentation iterators over code point iterators over code unit
+    iterators resulted in large iterators.  In some cases, a single iterator might
+    store 16 iterators within it.
+    - When discussing this, Tom mentioned our discussions of layering in Albuquerque
+      and the conclusion we reached that higher level iterators should store code
+      unit iterators and, if intermediate representations were needed, views of the
+      appropriate abstraction could be created on demand.
+  - Support for normalization and segmentation (grapheme/word iterators) is provided.
+  - Grapheme cluster segmentation supports locale tailoring.
+  - Implementation of segmentation uses an elegant approach of operator overloading
+    to enable specifying the segmentation rules almost verbatim from the Unicode
+    standard; this helped to avoid implementation errors.
+  - Flags are used instead of enumerations for break conditions; this enables
+    tracking multiple break states concurrently.
+  - The intent to optimize dispatch for, e.g., transcoding operations, has been
+    present from the beginning (as has been the case for all of our collective
+    efforts) but (like all of our collective efforts so far) has not yet been
+    implemented.
+- Further dicussion followed Martinho's presentation:
+  - Dutch "ij" is a digraph consisting of two code points that form a single
+    grapheme cluster.  When capitalizing, both letters are capitalized to "IJ".
+  - If you don't normalize, comparison operators are bad!
+    - JeanHyde's presentation made this point as well:
+      "Ў" (u+040E) != "y˘" (u+0079 u+02D8)
+  - Trivia: Vietnamese keyboards default to producing scan codes matching Unicode
+    NFD; most keywords produce NFC.
+  
+## Assignments:
+- Tom: Get the use cases doc sufficiently up to date to solicit help.
+
 
 # February 21st, 2018
 
