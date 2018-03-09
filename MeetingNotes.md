@@ -87,6 +87,7 @@ The next meeting is scheduled for Wednesday, March 28th, from 2:30-4:00pm EST.
   - Implementation of segmentation uses an elegant approach of operator overloading
     to enable specifying the segmentation rules almost verbatim from the Unicode
     standard; this helped to avoid implementation errors.
+    - https://github.com/libogonek/ogonek/blob/devel/include/ogonek/segmentation/detail/word_iterator.h%2B%2B#L60-L100
   - Flags are used instead of enumerations for break conditions; this enables
     tracking multiple break states concurrently.
   - The intent to optimize dispatch for, e.g., transcoding operations, has been
