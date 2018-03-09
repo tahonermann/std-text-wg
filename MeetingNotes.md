@@ -32,7 +32,7 @@ The next meeting is scheduled for Wednesday, March 28th, from 2:30-4:00pm EST.
   - R. Martinho Fernandez
 - First up was a round of introductions in honor of our new attendees.
 - JeanHyde presented his prior work on `text_view` and `text` types.
-  - <FIXME: link to presentation>
+  - [Slides](presentations/a%20rudimentary%20unicode%20abstraction%20-%20ThePhD%20-%202018.03.07.pptx)
   - Tom loved that JeanHyde's presentation could almost be used as-is for
     his own `text_view` implementation!
   - Notable similarities to Tom's `text_view`:
