@@ -26,20 +26,20 @@ The next meeting is scheduled for Wednesday, March 28th, from 2:30-4:00pm EST.
 - Attendees:
   - Tom Honermann
   - Peter Bindels
-  - JeanHyde Meneide
+  - JeanHeyd Meneide
   - Corentin Jabot
   - Mark Zeren
-  - R. Martinho Fernandez
+  - R. Martinho Fernandes
 - First up was a round of introductions in honor of our new attendees.
-- JeanHyde presented his prior work on `text_view` and `text` types.
+- JeanHeyd presented his prior work on `text_view` and `text` types.
   - [Slides](presentations/a%20rudimentary%20unicode%20abstraction%20-%20ThePhD%20-%202018.03.07.pptx)
-  - Tom loved that JeanHyde's presentation could almost be used as-is for
+  - Tom loved that JeanHeyd's presentation could almost be used as-is for
     his own `text_view` implementation!
   - Notable similarities to Tom's `text_view`:
     - Naming.
     - Both are based on range concepts.
     - Both use low level encode/decode interfaces wrapped by iterator classes.
-    - JeanHyde's `text` closely matches what Tom has planned to provide
+    - JeanHeyd's `text` closely matches what Tom has planned to provide
       for approximately forever, but still doesn't.
     - Default encodings are deduced based on code unit type (`char`,
       `char16_t`, etc...)
@@ -61,14 +61,14 @@ The next meeting is scheduled for Wednesday, March 28th, from 2:30-4:00pm EST.
       - Potentially undesirable due to hidden performance costs.
       - Compatible encodings (e.g., ASCII as a subset of UTF-8) allowed
         an optimization to use memcpy rather than transcoding.
-        - JeanHyde remarked that this had a tendency to produce broken UTF-8
+        - JeanHeyd remarked that this had a tendency to produce broken UTF-8
           when invalid ASCII sequences were provided.
         - Tom noted that broken UTF-8 seemed reasonable in that case since
           a precondition was violated.
         - Mark noted that UB could be good for release builds, but for debug
           builds, validation could be desirable.
     - Normalization forms.  Choose one?  Provide as views?
-    - Relational operators.  [Editor's note: I think JeanHyde mentioned that
+    - Relational operators.  [Editor's note: I think JeanHeyd mentioned that
       these operators implemented canonical equivalence, but I don't recall for
       sure.]
 - Martinho discussed his work on Ogonek.
@@ -98,7 +98,7 @@ The next meeting is scheduled for Wednesday, March 28th, from 2:30-4:00pm EST.
   - Dutch "ij" is a digraph consisting of two code points that form a single
     grapheme cluster.  When capitalizing, both letters are capitalized to "IJ".
   - If you don't normalize, comparison operators are bad!
-    - JeanHyde's presentation made this point as well:
+    - JeanHeyd's presentation made this point as well:
       "Ў" (u+040E) != "y˘" (u+0079 u+02D8)
   - Trivia: Vietnamese keyboards default to producing scan codes matching Unicode
     NFD; most keywords produce NFC.
