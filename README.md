@@ -10,6 +10,6 @@ If you would like to contribute to the discussion, please join us on [<img src="
   - [P0353: Unicode Friendly Encoding Conversions for the Standard Library](http://wg21.link/p0353)
   - [WG21 P0482: char8_t: A type for UTF-8 characters and strings](http://wg21.link/p0482)
   - [WG14 N2231: char8_t: A type for UTF-8 characters and strings](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n2231.htm)
-  - [Text: What a std::string replacement for std2 might look like](https://github.com/tzlaine/text)
+  - [Text: What a c++ standard Unicode library might look like](https://github.com/tzlaine/text)
 - [Meeting Notes](MeetingNotes.md)
 - [Use Cases](UseCases.html) [(view HTML)](http://htmlpreview.github.io/?https://github.com/tahonermann/std-text-wg/blob/master/UseCases.html) (This is WIP with, well, little progress so far.  Suggestions welcome!)
