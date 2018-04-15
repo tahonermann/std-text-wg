@@ -4,6 +4,7 @@
 
 The following content reflects meetings held before the formation of SG16.
 
+- [SG16 meetings](#sg16-meetings)
 - [March 7th, 2018](#march-7th-2018)
 - [February 21st, 2018](#february-21st-2018)
 - [January 31st, 2018](#january-31st-2018)
@@ -16,6 +17,13 @@ The following content reflects meetings held before the formation of SG16.
 - [September 13th, 2017](#september-13th-2017)
 - [August 30th, 2017](#august-30th-2017)
 - [August 16th, 2017](#august-16th-2017)
+
+
+# SG16 Meetings
+
+Meetings held following the formation of SG16 are tracked at:
+- https://github.com/sg16-unicode/sg16-meetings/blob/master/README.md
+
 
 # March 7th, 2018
 
