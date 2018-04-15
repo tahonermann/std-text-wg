@@ -1,6 +1,8 @@
 # Meeting Notes
 
-The next meeting is scheduled for Wednesday, March 28th, from 2:30-4:00pm EST.
+***The std-text-wg working group has evolved into the official WG21 SG16 Unicode study group.  Meeting notes are now tracked by the [sg16-meetings](https://github.com/sg16-unicode/sg16-meetings) repository within the [sg16-unicode](https://github.com/sg16-unicode) GitHub organization.***
+
+The following content reflects meetings held before the formation of SG16.
 
 - [March 7th, 2018](#march-7th-2018)
 - [February 21st, 2018](#february-21st-2018)
